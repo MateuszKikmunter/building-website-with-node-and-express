@@ -4,6 +4,9 @@ const path = require("path");
 const app = express();
 
 app.set("view engine", "pug");
+if(app.get("env") === "development") {
+    app.locals.pretty = true;
+}
 app.set("Views", path.join(__dirname, "./views"));
 
 const routes = require("./routes");
