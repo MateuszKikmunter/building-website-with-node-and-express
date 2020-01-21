@@ -1,5 +1,10 @@
 const express = require("express");
+const path = require("path");
 const app = express();
+
+app.set("view engine", "pug");
+app.set("Views", path.join(__dirname, "./views"));
+
 const routes = require("./routes");
 
 app.use(express.static("./assets"));
