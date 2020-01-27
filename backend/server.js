@@ -2,12 +2,14 @@ const express = require("express");
 const createError = require("http-errors");
 const path = require("path");
 const configs = require("./config");
+const SpeakerService = require("./services/SpeakerService");
 const app = express();
 
 const config = configs[app.get("env")];
+const speakerService = new SpeakerService(config.data.speakers);
 
 app.set("view engine", "pug");
-if(app.get("env") === "development") {
+if (app.get("env") === "development") {
     app.locals.pretty = true;
 }
 app.set("Views", path.join(__dirname, "./views"));
@@ -18,6 +20,16 @@ const routes = require("./routes");
 app.use(express.static("./assets"));
 app.get("/favicon.ico", (req, rest, next) => {
     return rest.sendStatus(204);
+});
+
+app.use(async (req, res, next) => {
+    try {
+        const names = await speakerService.getNames();
+        res.locals.speakerNames = names;
+        return next();
+    } catch (err) {
+        return next(err);
+    }
 });
 
 app.use("/", routes());
