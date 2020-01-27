@@ -1,8 +1,8 @@
 module.exports = {
     development: {
-        stiename: "Roux Meetups [Development]"
+        sitename: "Roux Meetups [Development]"
     },
     production: {
-        stiename: "Roux Meetups"
+        sitename: "Roux Meetups"
     }
 };

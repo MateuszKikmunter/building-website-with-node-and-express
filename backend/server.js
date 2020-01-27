@@ -11,6 +11,7 @@ if(app.get("env") === "development") {
     app.locals.pretty = true;
 }
 app.set("Views", path.join(__dirname, "./views"));
+app.locals.title = config.sitename;
 
 const routes = require("./routes");
 
