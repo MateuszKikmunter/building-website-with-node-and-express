@@ -18,9 +18,20 @@ class SpeakerService {
         });
     }
 
+    async getListShort() {
+        const data = await this.getData();
+        return data.map(speaker => {
+            return {
+                name: speaker.name,
+                shortName: speaker.shortname,
+                title: speaker.title
+            };
+        });
+    }
+
     async getData() {
         const data = await readFile(this.dataFile, "utf8");
-        if(!data){
+        if (!data) {
             return [];
         }
         return JSON.parse(data).speakers;
