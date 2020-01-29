@@ -21,13 +21,10 @@ header
                                 span
                         ul.dropdown-menu
                             li
-                                a(href='./speakers') All Speakers
+                                a(href='/speakers') All Speakers
                             li.divider(role='separator')
+                            each speaker in speakerNames
+                                li
+                                    a(href=`/speakers/${speaker.shortName}`)=speaker.name
                             li
-                                a(href='/speakers/Lorenzo_Garcia') Lorenzo Garcia
-                            li
-                                a(href='./Hillary_Goldwynn.html') Hilary Goldywynn Post
-                            li
-                                a(href='/speakers/Riley_Rewington') Riley Rudolph Rewington
-                            li
-                                a(href='./feedback.html') Feedback
+                                a(href='/feedback') Feedback
