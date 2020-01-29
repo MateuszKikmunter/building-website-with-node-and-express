@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-module.exports = () => {
+module.exports = (param) => {
 
     router.get("/", (req, res, next) => {
         return res.send("feedback");

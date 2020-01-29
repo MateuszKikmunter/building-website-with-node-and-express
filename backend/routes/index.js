@@ -7,7 +7,6 @@ const feedbackRoute = require("./feedback");
 module.exports = (param) => {
 
     const { speakerService } = param;
-
     router.get("/", async (req, res, next) => {
 
         const speakersList = await speakerService.getListShort();
@@ -18,8 +17,8 @@ module.exports = (param) => {
         });
     });
 
-    router.use("/speakers", speakersRoute());
-    router.use("/feedback", feedbackRoute());
+    router.use("/speakers", speakersRoute(param));
+    router.use("/feedback", feedbackRoute(param));
 
     return router;
 };
