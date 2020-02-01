@@ -36,7 +36,7 @@ module.exports = (param) => {
             return res.render('speakers/detail', {
                 page: req.params.name,
                 speaker: results[0],
-                artowork: results[1]
+                artwork: results[1]
             });
 
         } catch (error) {
