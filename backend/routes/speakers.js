@@ -24,10 +24,24 @@ module.exports = (param) => {
         }
     });
 
-    router.get('/:name', (req, res, next) => {
-        return res.render('speakers/detail', {
-            page: req.params.name,
-        });
+    router.get('/:name', async (req, res, next) => {
+
+        try {
+            const speakerName = req.params.name;
+            const promises = [];
+            promises.push(speakerService.getSpeakerByName(speakerName));
+            promises.push(speakerService.getSpeakerArtwork(speakerName));
+
+            const results = await Promise.all(promises);
+            return res.render('speakers/detail', {
+                page: req.params.name,
+                speaker: results[0],
+                artowork: results[1]
+            });
+
+        } catch (error) {
+            return next(error);
+        }
     });
 
     return router;
