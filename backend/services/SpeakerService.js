@@ -36,7 +36,8 @@ class SpeakerService {
                 name: speaker.name,
                 shortName: speaker.shortname,
                 title: speaker.title,
-                summary: speaker.summary
+                summary: speaker.summary,
+                description: speaker.description
             };
         });
     }
