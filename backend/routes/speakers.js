@@ -7,11 +7,21 @@ module.exports = (param) => {
     const { speakerService } = param;
 
     router.get('/', async (req, res, next) => {
-        const speakersList = await speakerService.getList();
-        return res.render('speakers', {
-            page: 'All Speakers',
-            speakersList: speakersList
-        });
+
+        try {
+            const promises = [];
+            promises.push(speakerService.getListShort());
+            promises.push(speakerService.getAllArtwork());
+
+            const results = await Promise.all(promises);
+            return res.render('speakers', {
+                page: 'All Speakers',
+                speakersList: results[0],
+                artwork: results[1]
+            });
+        } catch (error) {
+            return next(error);
+        }
     });
 
     router.get('/:name', (req, res, next) => {

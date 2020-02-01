@@ -9,12 +9,21 @@ module.exports = (param) => {
     const { speakerService } = param;
     router.get("/", async (req, res, next) => {
 
-        const speakersList = await speakerService.getListShort();
+        try {
+            const promises = [];
+            promises.push(speakerService.getListShort());
+            promises.push(speakerService.getAllArtwork());
 
-        return res.render("index", {
-            page: "Home",
-            speakersList: speakersList
-        });
+            const results = await Promise.all(promises);
+
+            return res.render("index", {
+                page: "Home",
+                speakersList: results[0],
+                artwork: results[1]
+            });
+        } catch (error) {
+            return next(error);
+        }
     });
 
     router.use("/speakers", speakersRoute(param));
