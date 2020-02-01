@@ -5,7 +5,7 @@ const router = express.Router();
 module.exports = (param) => {
 
     router.get("/", (req, res, next) => {
-        return res.send("feedback");
+        return res.render("feedback");
     });
 
     router.post("/", (req, res, next) => {
