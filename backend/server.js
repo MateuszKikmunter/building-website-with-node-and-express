@@ -3,10 +3,12 @@ const createError = require("http-errors");
 const path = require("path");
 const configs = require("./config");
 const SpeakerService = require("./services/SpeakerService");
+const FeedbackService = require("./services/FeedbackService");
 const app = express();
 
 const config = configs[app.get("env")];
 const speakerService = new SpeakerService(config.data.speakers);
+const feedbackService = new FeedbackService(config.data.feedback);
 
 app.set("view engine", "pug");
 if (app.get("env") === "development") {
@@ -32,7 +34,7 @@ app.use(async (req, res, next) => {
     }
 });
 
-app.use("/", routes({ speakerService }));
+app.use("/", routes({ speakerService, feedbackService }));
 
 //add 404 route handler
 app.use((req, res, next) => {

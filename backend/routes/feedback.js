@@ -4,8 +4,19 @@ const router = express.Router();
 
 module.exports = (param) => {
 
-    router.get("/", (req, res, next) => {
-        return res.render("feedback");
+    const { feedbackService } = param;
+
+    router.get("/", async (req, res, next) => {
+        try {
+            const feedbackList = await feedbackService.getList();
+            return res.render("feedback", {
+                page: "Feedback",
+                feedbackList
+            });
+        } catch (error) {
+            return next(error);
+        }
+
     });
 
     router.post("/", (req, res, next) => {
