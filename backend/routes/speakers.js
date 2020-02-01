@@ -10,7 +10,7 @@ module.exports = (param) => {
 
         try {
             const promises = [];
-            promises.push(speakerService.getListShort());
+            promises.push(speakerService.getList());
             promises.push(speakerService.getAllArtwork());
 
             const results = await Promise.all(promises);
