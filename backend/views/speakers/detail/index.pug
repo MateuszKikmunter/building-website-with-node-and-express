@@ -14,7 +14,7 @@ block content
                             p.speakerslist-info
                                 a(href=`./${speaker.shortName}`)
                                 img.speakerslist-img.img-responsive.pull-left(src=`/images/speakers/${speaker.shortName}.jpg` alt=`Photo of ${speaker.name}`)
-                            p=speaker.description
+                            !=speaker.description
         aside.col-sm-4
             article.sidebar
                 include ../../includes/artwork           
