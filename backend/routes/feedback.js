@@ -11,7 +11,8 @@ module.exports = (param) => {
             const feedbackList = await feedbackService.getList();
             return res.render("feedback", {
                 page: "Feedback",
-                feedbackList
+                feedbackList,
+                success: req.query.success
             });
         } catch (error) {
             return next(error);
@@ -37,7 +38,7 @@ module.exports = (param) => {
                 });
             }
 
-            return res.send("form sent");
+            return res.redirect("/feedback?success=true");
         } catch (error) {
             return next(error);
         }
