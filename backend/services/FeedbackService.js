@@ -2,6 +2,7 @@ const fs = require("fs");
 const util = require("util");
 
 const readFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
 
 class FeedbackService {
     constructor(dataFile) {
@@ -10,6 +11,12 @@ class FeedbackService {
 
     async getList() {
         return await this.getData();
+    }
+
+    async addEntry(name, title, message) {
+        const data = await this.getData();
+        data.unshift({ name, title, message });
+        return writeFile(this.dataFile, JSON.stringify(data));
     }
 
     async getData() {
