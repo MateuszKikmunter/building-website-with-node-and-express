@@ -19,8 +19,28 @@ module.exports = (param) => {
 
     });
 
-    router.post("/", (req, res, next) => {
-        return res.send("form sent");
+    router.post("/", async (req, res, next) => {
+        const fbName = req.body.fbName.trim();
+        const fbTitle = req.body.fbTitle.trim();
+        const fbMessage = req.body.fbMessage.trim();
+
+        try {
+            if (!fbName || !fbTitle || !fbMessage) {
+                const feedbackList = await feedbackService.getList();
+                return res.render("feedback", {
+                    page: "Feedback",
+                    error: true,
+                    fbName,
+                    fbMessage,
+                    fbTitle,
+                    feedbackList
+                });
+            }
+
+            return res.send("form sent");
+        } catch (error) {
+            return next(error);
+        }
     });
 
     return router;
